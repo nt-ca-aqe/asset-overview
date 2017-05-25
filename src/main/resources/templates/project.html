@@ -28,73 +28,79 @@
 
 <hr/>
 
-<h2>Continuous Integration</h2>
-<table>
-    <tr>
-        <th>Branch</th>
-        <th th:if="${project.services.contains('travis-ci')}">Build</th>
-        <th th:if="${project.services.contains('codecov')}">Coverage</th>
-        <th th:if="${project.services.contains('bettercode')}">Better Code</th>
-    </tr>
-    <tr th:each="branch : ${project.branches}">
-        <td th:text="${branch}"></td>
-        <td th:if="${project.services.contains('travis-ci')}">
-            <!-- Travis CI Build Badge -->
-            <a th:href="'https://travis-ci.org/' + ${project.organization} + '/' + ${project.repository} + '/branches'"
-                    target="_blank">
-                <img th:src="'https://travis-ci.org/' + ${project.organization} + '/' + ${project.repository} + '.svg?branch=' + ${branch}">
-            </a>
-        </td>
-        <td th:if="${project.services.contains('codecov')}">
-            <!-- Codecov Badge -->
-            <a th:href="'https://codecov.io/gh/' + ${project.organization} + '/' + ${project.repository} + '/branch/' + ${branch}"
-                    target="_blank">
-                <img th:src="'https://codecov.io/gh/' + ${project.organization} + '/' + ${project.repository} + '/branch/' + ${branch} + '/graph/badge.svg'">
-            </a>
-        </td>
-        <td th:if="${project.services.contains('bettercode')}">
-            <!-- Better Code Hub Badge -->
-            <a th:href="'https://bettercodehub.com/results/' + ${project.organization} + '/' + ${project.repository} + '/'"
-                    target="_blank">
-                <img th:src="'https://bettercodehub.com/edge/badge/' + ${project.organization} + '/' + ${project.repository} + '?branch=' + ${branch}">
-            </a>
-        </td>
-    </tr>
-</table>
+<div th:if="${!project.branches.isEmpty()}">
+    <h2>Continuous Integration</h2>
+    <p>The following table shows all of the project's maintained branches / versions with build status and quality metrics.</p>
+    <table>
+        <tr>
+            <th>Branch</th>
+            <th th:if="${project.services.contains('travis-ci')}">Build</th>
+            <th th:if="${project.services.contains('codecov')}">Coverage</th>
+            <th th:if="${project.services.contains('bettercode')}">Better Code</th>
+        </tr>
+        <tr th:each="branch : ${project.branches}">
+            <td th:text="${branch}"></td>
+            <td th:if="${project.services.contains('travis-ci')}">
+                <!-- Travis CI Build Badge -->
+                <a th:href="'https://travis-ci.org/' + ${project.organization} + '/' + ${project.repository} + '/branches'"
+                        target="_blank">
+                    <img th:src="'https://travis-ci.org/' + ${project.organization} + '/' + ${project.repository} + '.svg?branch=' + ${branch}">
+                </a>
+            </td>
+            <td th:if="${project.services.contains('codecov')}">
+                <!-- Codecov Badge -->
+                <a th:href="'https://codecov.io/gh/' + ${project.organization} + '/' + ${project.repository} + '/branch/' + ${branch}"
+                        target="_blank">
+                    <img th:src="'https://codecov.io/gh/' + ${project.organization} + '/' + ${project.repository} + '/branch/' + ${branch} + '/graph/badge.svg'">
+                </a>
+            </td>
+            <td th:if="${project.services.contains('bettercode')}">
+                <!-- Better Code Hub Badge -->
+                <a th:href="'https://bettercodehub.com/results/' + ${project.organization} + '/' + ${project.repository} + '/'"
+                        target="_blank">
+                    <img th:src="'https://bettercodehub.com/edge/badge/' + ${project.organization} + '/' + ${project.repository} + '?branch=' + ${branch}">
+                </a>
+            </td>
+        </tr>
+    </table>
+</div>
 
-<h2>Deployment</h2>
-<table>
-    <tr>
-        <th>Artifact</th>
-        <th>Maven Central</th>
-        <th>JavaDoc</th>
-        <th>Dependencies</th>
-    </tr>
-    <tr th:each="artifact : ${project.artifacts}">
-        <td th:text="${artifact.artifactId}"></td>
-        <td>
-            <!-- Maven Central Version Badge -->
-            <a th:href="'https://maven-badges.herokuapp.com/maven-central/' + ${artifact.groupId} + '/' + ${artifact.artifactId}"
-                    target="_blank">
-                <img th:src="'https://maven-badges.herokuapp.com/maven-central/' + ${artifact.groupId} + '/' + ${artifact.artifactId} + '/badge.svg'">
-            </a>
-        </td>
-        <td>
-            <!-- JavaDoc Version Badge -->
-            <a th:href="'https://www.javadoc.io/doc/' + ${artifact.groupId} + '/' + ${artifact.artifactId}"
-                    target="_blank">
-                <img th:src="'https://www.javadoc.io/badge/' + ${artifact.groupId} + '/' + ${artifact.artifactId} + '.svg'">
-            </a>
-        </td>
-        <td>
-            <!-- Dependency Analyse Badge -->
-            <a th:href="'https://www.versioneye.com/java/' + ${artifact.groupId} + ':' + ${artifact.artifactId} + '/'"
-                    target="_blank">
-                <img th:src="'https://www.versioneye.com/java/' + ${artifact.groupId} + ':' + ${artifact.artifactId} + '/badge?style=flat'">
-            </a>
-        </td>
-    </tr>
-</table>
+<div th:if="${!project.artifacts.isEmpty()}">
+    <h2>Modules / Artifacts</h2>
+    <p>The following table shows all of the project's available modules.</p>
+    <table>
+        <tr>
+            <th>Artifact</th>
+            <th>Maven Central</th>
+            <th>JavaDoc</th>
+            <th>Dependencies</th>
+        </tr>
+        <tr th:each="artifact : ${project.artifacts}">
+            <td th:text="${artifact.artifactId}"></td>
+            <td>
+                <!-- Maven Central Version Badge -->
+                <a th:href="'https://maven-badges.herokuapp.com/maven-central/' + ${artifact.groupId} + '/' + ${artifact.artifactId}"
+                        target="_blank">
+                    <img th:src="'https://maven-badges.herokuapp.com/maven-central/' + ${artifact.groupId} + '/' + ${artifact.artifactId} + '/badge.svg'">
+                </a>
+            </td>
+            <td>
+                <!-- JavaDoc Version Badge -->
+                <a th:href="'https://www.javadoc.io/doc/' + ${artifact.groupId} + '/' + ${artifact.artifactId}"
+                        target="_blank">
+                    <img th:src="'https://www.javadoc.io/badge/' + ${artifact.groupId} + '/' + ${artifact.artifactId} + '.svg'">
+                </a>
+            </td>
+            <td>
+                <!-- Dependency Analyse Badge -->
+                <a th:href="'https://www.versioneye.com/java/' + ${artifact.groupId} + ':' + ${artifact.artifactId} + '/'"
+                        target="_blank">
+                    <img th:src="'https://www.versioneye.com/java/' + ${artifact.groupId} + ':' + ${artifact.artifactId} + '/badge?style=flat'">
+                </a>
+            </td>
+        </tr>
+    </table>
+</div>
 
 </body>
 </html>
