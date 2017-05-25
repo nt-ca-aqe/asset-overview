@@ -26,6 +26,7 @@ class LocalGitRepository {
             setUri(URIish(remoteUrl))
             call()
         }
+        log.info("GIT: 'remote add origin ${remoteUrl}'")
     }
 
     fun fetchOrigin() {
@@ -33,6 +34,7 @@ class LocalGitRepository {
             setRemote("origin")
             call()
         }
+        log.info("GIT: 'fetch origin'")
     }
 
     fun resetToOriginMaster() {
@@ -41,6 +43,7 @@ class LocalGitRepository {
             setRef("origin/master")
             call()
         }
+        log.info("GIT: 'reset origin/master --hard'")
     }
 
     fun getWorkingDirectory(): Path {

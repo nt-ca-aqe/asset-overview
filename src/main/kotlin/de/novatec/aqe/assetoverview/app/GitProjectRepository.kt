@@ -51,6 +51,13 @@ class GitProjectRepository(
                 .findFirst().orElse(null)
     }
 
+    fun refresh() {
+        with(localRepository) {
+            fetchOrigin();
+            resetToOriginMaster()
+        }
+    }
+
     private fun readAsProject(projectFile: File): Project {
         return objectMapper.readValue(projectFile, Project::class.java)
     }
