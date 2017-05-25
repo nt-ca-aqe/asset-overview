@@ -11,8 +11,7 @@
 
 	<groupId>de.novatec.aqe</groupId>
 	<artifactId>asset-overview</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<version>1.0-SNAPSHOT</version>
 
 	<properties>
 		<java.version>1.8</java.version>
@@ -53,17 +52,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-mongodb</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>de.flapdoodle.embed</groupId>
-			<artifactId>de.flapdoodle.embed.mongo</artifactId>
-			<!--<scope>test</scope>-->
-		</dependency>
-
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
