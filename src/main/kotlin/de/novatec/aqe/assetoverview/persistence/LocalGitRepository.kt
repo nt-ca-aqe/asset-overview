@@ -1,4 +1,4 @@
-package de.novatec.aqe.assetoverview.app
+package de.novatec.aqe.assetoverview.persistence
 
 import org.eclipse.jgit.api.Git
 import org.eclipse.jgit.api.ResetCommand
@@ -8,14 +8,14 @@ import org.slf4j.LoggerFactory.getLogger
 import java.nio.file.Files
 import java.nio.file.Path
 
-class LocalGitRepository {
+internal class LocalGitRepository {
 
     private val log: Logger = getLogger(javaClass)
 
     private var git: Git
 
     init {
-        val localGitRepository = Files.createTempDirectory("git-repo").toFile()
+        val localGitRepository = Files.createTempDirectory("git-repo").toFile().apply { deleteOnExit() }
         log.info("temporary folder for local GIT repository: {}", localGitRepository)
         git = Git.init().setDirectory(localGitRepository).call()
     }

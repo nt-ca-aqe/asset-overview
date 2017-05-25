@@ -1,28 +1,32 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Overview for Testproject</title>
+    <title th:text="'Overview of ' + ${project.name}"></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="../static/css/style.css"
+            th:href="@{/css/style.css}"
+            rel="stylesheet" media="screen"/>
 </head>
 <body>
 
 <h1 th:text="${project.name}"></h1>
+
 <hr/>
 
 <!-- GitHub Repository Link -->
 <a th:href="'https://github.com/' + ${project.organization} + '/' + ${project.repository}" target="_blank">
     <img src="https://img.shields.io/badge/repository-GitHub-blue.svg">
 </a>
-
 <!-- Documentation Link -->
 <a th:href="${project.documentation}" th:if="${project.documentation} != null" target="_blank">
     <img src="https://img.shields.io/badge/documentation-Online-green.svg">
 </a>
-
 <!-- GitHub Release Badge -->
 <a th:href="'https://github.com/' + ${project.organization} + '/' + ${project.repository} + '/releases'" target="_blank">
     <img th:src="'https://badge.fury.io/gh/' + ${project.organization} + '%2F' + ${project.repository} + '.svg'">
 </a>
+
+<hr/>
 
 <h2>Continuous Integration</h2>
 <table>
