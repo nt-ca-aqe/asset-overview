@@ -14,12 +14,12 @@ import javax.annotation.PostConstruct
 @Service
 @ConfigurationProperties("git")
 internal class GitProjectRepository(
-        private val objectMapper: ObjectMapper
+        private val objectMapper: ObjectMapper,
+        private val localRepository: LocalGitRepository
 ) : ProjectRepository {
 
     var repositoryUrl: String? = null
 
-    private val localRepository = LocalGitRepository()
     private val fileSuffixFilter = { file: File -> file.name.endsWith(".project") }
 
     @PostConstruct

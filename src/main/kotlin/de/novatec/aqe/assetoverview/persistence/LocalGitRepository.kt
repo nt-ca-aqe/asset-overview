@@ -5,9 +5,11 @@ import org.eclipse.jgit.api.ResetCommand
 import org.eclipse.jgit.transport.URIish
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory.getLogger
+import org.springframework.stereotype.Component
 import java.nio.file.Files
 import java.nio.file.Path
 
+@Component
 internal class LocalGitRepository {
 
     private val log: Logger = getLogger(javaClass)
