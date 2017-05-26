@@ -4,8 +4,8 @@ import com.nhaarman.mockito_kotlin.doReturn
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.whenever
+import de.novatec.aqe.assetoverview.business.Artifact
 import de.novatec.aqe.assetoverview.business.Project
-import de.novatec.aqe.assetoverview.business.Project.Artifact
 import de.novatec.aqe.assetoverview.business.ProjectRepository
 import de.novatec.aqe.assetoverview.ui.UiController.NotFoundException
 import org.assertj.core.api.Assertions.assertThat
