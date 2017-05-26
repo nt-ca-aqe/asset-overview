@@ -31,7 +31,18 @@ internal class UiController(
     @GetMapping("/{id}")
     fun getProject(@PathVariable id: String, model: Model): String {
         val project: Project = repository.findById(id) ?: throw NotFoundException(id)
+
         model.addAttribute("project", project)
+
+        model.addAttribute("render_documentation", project.documentation?.isNotBlank() ?: false)
+
+        model.addAttribute("render_ci", project.branches.isNotEmpty())
+        model.addAttribute("render_artifacts", project.artifacts.isNotEmpty())
+
+        model.addAttribute("render_travis", project.services.contains("travis"))
+        model.addAttribute("render_codecov", project.services.contains("codecov"))
+        model.addAttribute("render_bettercode", project.services.contains("bettercode"))
+
         return "project"
     }
 

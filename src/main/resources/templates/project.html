@@ -18,7 +18,7 @@
     <img src="https://img.shields.io/badge/repository-GitHub-blue.svg">
 </a>
 <!-- Documentation Link -->
-<a th:href="${project.documentation}" th:if="${project.documentation} != null" target="_blank">
+<a th:href="${project.documentation}" th:if="${render_documentation}" target="_blank">
     <img src="https://img.shields.io/badge/documentation-Online-green.svg">
 </a>
 <!-- GitHub Release Badge -->
@@ -28,33 +28,33 @@
 
 <hr/>
 
-<div th:if="${!project.branches.isEmpty()}">
+<div th:if="${render_ci}">
     <h2>Continuous Integration</h2>
     <p>The following table shows all of the project's maintained branches / versions with build status and quality metrics.</p>
     <table>
         <tr>
             <th>Branch</th>
-            <th th:if="${project.services.contains('travis-ci')}">Build</th>
-            <th th:if="${project.services.contains('codecov')}">Coverage</th>
-            <th th:if="${project.services.contains('bettercode')}">Better Code</th>
+            <th th:if="${render_travis}">Build</th>
+            <th th:if="${render_codecov}">Coverage</th>
+            <th th:if="${render_bettercode}">Better Code</th>
         </tr>
         <tr th:each="branch : ${project.branches}">
             <td th:text="${branch}"></td>
-            <td th:if="${project.services.contains('travis-ci')}">
+            <td th:if="${render_travis}">
                 <!-- Travis CI Build Badge -->
                 <a th:href="'https://travis-ci.org/' + ${project.organization} + '/' + ${project.repository} + '/branches'"
                         target="_blank">
                     <img th:src="'https://travis-ci.org/' + ${project.organization} + '/' + ${project.repository} + '.svg?branch=' + ${branch}">
                 </a>
             </td>
-            <td th:if="${project.services.contains('codecov')}">
+            <td th:if="${render_codecov}">
                 <!-- Codecov Badge -->
                 <a th:href="'https://codecov.io/gh/' + ${project.organization} + '/' + ${project.repository} + '/branch/' + ${branch}"
                         target="_blank">
                     <img th:src="'https://codecov.io/gh/' + ${project.organization} + '/' + ${project.repository} + '/branch/' + ${branch} + '/graph/badge.svg'">
                 </a>
             </td>
-            <td th:if="${project.services.contains('bettercode')}">
+            <td th:if="${render_bettercode}">
                 <!-- Better Code Hub Badge -->
                 <a th:href="'https://bettercodehub.com/results/' + ${project.organization} + '/' + ${project.repository} + '/'"
                         target="_blank">
@@ -65,8 +65,8 @@
     </table>
 </div>
 
-<div th:if="${!project.artifacts.isEmpty()}">
-    <h2>Modules / Artifacts</h2>
+<div th:if="${render_artifacts}">
+    <h2>Artifacts</h2>
     <p>The following table shows all of the project's available modules.</p>
     <table>
         <tr>
