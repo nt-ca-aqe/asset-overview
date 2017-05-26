@@ -7,9 +7,9 @@ data class Project(
         var organization: String? = null,
         var repository: String? = null,
         var documentation: String? = null,
-        var branches: MutableList<String> = mutableListOf<String>(),
-        var services: MutableList<String> = mutableListOf<String>(),
-        var artifacts: MutableList<Artifact> = mutableListOf<Artifact>()
+        var branches: List<String> = listOf<String>(),
+        var services: List<String> = listOf<String>(),
+        var artifacts: List<Artifact> = listOf<Artifact>()
 )
 
 data class Artifact(

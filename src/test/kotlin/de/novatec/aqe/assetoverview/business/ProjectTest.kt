@@ -16,15 +16,15 @@ internal class ProjectTest {
             organization = "organization"
             repository = "repository"
             documentation = "documentation"
-            branches = mutableListOf(
+            branches = listOf(
                     "branch1",
                     "branch2"
             )
-            services = mutableListOf(
+            services = listOf(
                     "service1",
                     "service2"
             )
-            artifacts = mutableListOf(
+            artifacts = listOf(
                     Artifact().apply {
                         artifactId = "artifactId1"
                         groupId = "groupId1"
