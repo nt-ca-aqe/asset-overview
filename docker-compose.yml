@@ -1,0 +1,4 @@
+app:
+  image: caaqe/asset-overview:latest
+  ports:
+    - "8080:8080"
