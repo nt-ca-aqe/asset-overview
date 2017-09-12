@@ -1,7 +1,7 @@
-package de.novatec.aqe.assetoverview.ui
+package assetoverview.ui
 
-import de.novatec.aqe.assetoverview.business.Project
-import de.novatec.aqe.assetoverview.business.ProjectRepository
+import assetoverview.business.Project
+import assetoverview.business.ProjectRepository
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory.getLogger
 import org.springframework.http.HttpStatus
@@ -19,14 +19,14 @@ internal class UiController(
 
     private val log: Logger = getLogger(javaClass)
 
-
     @GetMapping("/")
     fun getIndex(model: Model): String {
-        val projects: List<Project> = repository.findAll();
-        model.addAttribute("projects", projects)
+        model.addAttribute("projects", findAllProjectsWhere { !it.legacy })
+        model.addAttribute("legacyProjects", findAllProjectsWhere { it.legacy })
         return "index"
     }
 
+    private fun findAllProjectsWhere(filter: (Project) -> Boolean) = repository.findAll().filter(filter).sortedBy { it.name }
 
     @GetMapping("/{id}")
     fun getProject(@PathVariable id: String, model: Model): String {

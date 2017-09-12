@@ -1,4 +1,4 @@
-package de.novatec.aqe.assetoverview.business
+package assetoverview.business
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.assertj.core.api.Assertions.assertThat
@@ -7,8 +7,7 @@ import org.junit.jupiter.api.Test
 
 internal class ProjectTest {
 
-    @Test
-    fun `can be (de)serialized as JSON`() {
+    @Test fun `can be (de)serialized as JSON`() {
         val mapper = ObjectMapper()
         val project = Project().apply {
             id = "id"

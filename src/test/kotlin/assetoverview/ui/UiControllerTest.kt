@@ -1,13 +1,13 @@
-package de.novatec.aqe.assetoverview.ui
+package assetoverview.ui
 
 import com.nhaarman.mockito_kotlin.doReturn
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.whenever
-import de.novatec.aqe.assetoverview.business.Artifact
-import de.novatec.aqe.assetoverview.business.Project
-import de.novatec.aqe.assetoverview.business.ProjectRepository
-import de.novatec.aqe.assetoverview.ui.UiController.NotFoundException
+import assetoverview.business.Artifact
+import assetoverview.business.Project
+import assetoverview.business.ProjectRepository
+import assetoverview.ui.UiController.NotFoundException
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.BeforeEach
@@ -23,9 +23,10 @@ internal class UiControllerTest {
     val repository: ProjectRepository = mock()
     val cut: UiController = UiController(repository)
 
-    @Test
-    fun `get index HTML loads all projects into the model`() {
-        val foundProjects: List<Project> = mock()
+    @Test fun `get index HTML loads all projects into the model`() {
+        val project = Project(id = "1")
+        val anotherProject = Project(id = "2")
+        val foundProjects = listOf(project, anotherProject)
         doReturn(foundProjects).whenever(repository).findAll()
 
         val model: Model = mock()
@@ -35,9 +36,8 @@ internal class UiControllerTest {
         verify(model).addAttribute("projects", foundProjects)
     }
 
-    @Test
-    fun `get project HTML loads the project into the model`() {
-        val foundProject: Project = Project()
+    @Test fun `get project HTML loads the project into the model`() {
+        val foundProject = Project()
         doReturn(foundProject).whenever(repository).findById("projectId")
 
         val model: Model = mock()
@@ -47,43 +47,36 @@ internal class UiControllerTest {
         verify(model).addAttribute("project", foundProject)
     }
 
-    @Nested
-    inner class `render flags are set correctly` {
+    @Nested inner class `render flags are set correctly` {
 
         val project: Project = Project()
         val model: Model = mock()
 
-        @BeforeEach
-        fun projectIsReturned(): Project? {
-            return doReturn(project).whenever(repository).findById("projectId")
+        @BeforeEach fun projectIsReturned() {
+            doReturn(project).whenever(repository).findById("projectId")
         }
 
-        @Nested
-        inner class `documentation` {
+        @Nested inner class `documentation` {
 
-            @Test
-            fun `is not rendered if documentation is NULL`() {
+            @Test fun `is not rendered if documentation is NULL`() {
                 project.documentation = null
                 cut.getProject("projectId", model)
                 verify(model).addAttribute("render_documentation", false)
             }
 
-            @Test
-            fun `is not rendered if documentation is empty`() {
+            @Test fun `is not rendered if documentation is empty`() {
                 project.documentation = ""
                 cut.getProject("projectId", model)
                 verify(model).addAttribute("render_documentation", false)
             }
 
-            @Test
-            fun `is not rendered if documentation is only whitespace`() {
+            @Test fun `is not rendered if documentation is only whitespace`() {
                 project.documentation = " "
                 cut.getProject("projectId", model)
                 verify(model).addAttribute("render_documentation", false)
             }
 
-            @Test
-            fun `is rendered if documentation has anything as its value`() {
+            @Test fun `is rendered if documentation has anything as its value`() {
                 project.documentation = "anything else"
                 cut.getProject("projectId", model)
                 verify(model).addAttribute("render_documentation", true)
@@ -91,18 +84,15 @@ internal class UiControllerTest {
 
         }
 
-        @Nested
-        inner class `continuous integration table` {
+        @Nested inner class `continuous integration table` {
 
-            @Test
-            fun `is not rendered if there are no branches`() {
+            @Test fun `is not rendered if there are no branches`() {
                 project.branches = mutableListOf()
                 cut.getProject("projectId", model)
                 verify(model).addAttribute("render_ci", false)
             }
 
-            @Test
-            fun `is rendered when there is at least one branch`() {
+            @Test fun `is rendered when there is at least one branch`() {
                 project.branches = mutableListOf("master")
                 cut.getProject("projectId", model)
                 verify(model).addAttribute("render_ci", true)
@@ -110,18 +100,15 @@ internal class UiControllerTest {
 
         }
 
-        @Nested
-        inner class `artifacts table` {
+        @Nested inner class `artifacts table` {
 
-            @Test
-            fun `is not rendered if there are no artifacts`() {
+            @Test fun `is not rendered if there are no artifacts`() {
                 project.artifacts = mutableListOf()
                 cut.getProject("projectId", model)
                 verify(model).addAttribute("render_artifacts", false)
             }
 
-            @Test
-            fun `is rendered when there is at least one artifact`() {
+            @Test fun `is rendered when there is at least one artifact`() {
                 project.artifacts = mutableListOf(Artifact())
                 cut.getProject("projectId", model)
                 verify(model).addAttribute("render_artifacts", true)
@@ -147,8 +134,7 @@ internal class UiControllerTest {
 
     }
 
-    @Test
-    fun `get project HTML throws exception if project is not found`() {
+    @Test fun `get project HTML throws exception if project is not found`() {
         doReturn(null).whenever(repository).findById("projectId")
         assertThrows(NotFoundException::class.java, {
             cut.getProject("projectId", mock())

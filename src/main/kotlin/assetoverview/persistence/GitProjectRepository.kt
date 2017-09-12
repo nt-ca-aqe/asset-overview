@@ -1,8 +1,8 @@
-package de.novatec.aqe.assetoverview.persistence
+package assetoverview.persistence
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import de.novatec.aqe.assetoverview.business.Project
-import de.novatec.aqe.assetoverview.business.ProjectRepository
+import assetoverview.business.Project
+import assetoverview.business.ProjectRepository
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.stereotype.Service
 import java.io.File

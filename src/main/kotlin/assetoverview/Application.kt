@@ -1,6 +1,6 @@
-package de.novatec.aqe.assetoverview
+package assetoverview
 
-import de.novatec.aqe.assetoverview.business.ProjectRepository
+import assetoverview.business.ProjectRepository
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.context.annotation.Configuration
@@ -10,7 +10,7 @@ import org.springframework.scheduling.config.ScheduledTaskRegistrar
 import java.util.concurrent.TimeUnit
 
 @SpringBootApplication
-class AssetOverviewApplication {
+class Application {
 
     @Configuration
     @EnableScheduling
@@ -25,5 +25,5 @@ class AssetOverviewApplication {
 }
 
 fun main(args: Array<String>) {
-    SpringApplication.run(AssetOverviewApplication::class.java, *args)
+    SpringApplication.run(Application::class.java, *args)
 }

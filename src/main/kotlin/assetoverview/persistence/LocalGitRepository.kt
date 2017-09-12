@@ -1,4 +1,4 @@
-package de.novatec.aqe.assetoverview.persistence
+package assetoverview.persistence
 
 import org.eclipse.jgit.api.Git
 import org.eclipse.jgit.api.ResetCommand
@@ -14,7 +14,7 @@ internal class LocalGitRepository {
 
     private val log: Logger = getLogger(javaClass)
 
-    private var git: Git
+    private lateinit var git: Git
 
     init {
         val localGitRepository = Files.createTempDirectory("git-repo").toFile().apply { deleteOnExit() }
