@@ -1,0 +1,9 @@
+---
+applications:
+  - name: asset-overview
+    buildpack: https://github.com/cloudfoundry/java-buildpack.git#v3.19
+    path: target/asset-overview.jar
+    instances: 1
+    memory: 384M
+    disk_quota: 256M
+    host: nt-ca-aqe-assets
