@@ -9,14 +9,15 @@ buildscript {
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
         classpath("org.jetbrains.kotlin:kotlin-allopen:${kotlinVersion}")
         classpath("org.junit.platform:junit-platform-gradle-plugin:${junitPlatformVersion}")
+        classpath("se.transmode.gradle:gradle-docker:${dockerPluginVersion}")
     }
 }
 
 plugins {
     id 'java'
-    id 'maven'
     id 'idea'
 }
+apply plugin: 'docker'
 apply plugin: 'kotlin'
 apply plugin: 'kotlin-spring'
 apply plugin: 'kotlin-allopen'
@@ -56,4 +57,17 @@ dependencies {
     testCompile('org.springframework.boot:spring-boot-starter-test') {
         exclude(module: 'commons-logging')
     }
+}
+
+task buildDocker(type: Docker, dependsOn: build) {
+    push = false
+    tag = 'caaqe/asset-overview-spring'
+
+    baseImage = 'frolvlad/alpine-oraclejdk8:slim'
+    volume("/tmp")
+    addFile {
+        from bootJar
+        rename { 'app.jar' }
+    }
+    entryPoint(['java', '-Djava.security.egd=file:/dev/./urandom', '-jar', '/app.jar'])
 }
