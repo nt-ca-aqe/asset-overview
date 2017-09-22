@@ -1,0 +1,4 @@
+app:
+  image: caaqe/asset-overview:1.0-SNAPSHOT
+  ports:
+    - "8080:8080"
