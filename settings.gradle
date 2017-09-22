@@ -1,0 +1,4 @@
+rootProject.name = 'asset-overview'
+
+include 'asset-overview-spring'
+
